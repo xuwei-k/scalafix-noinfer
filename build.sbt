@@ -1,7 +1,8 @@
-lazy val V = _root_.scalafix.Versions
-lazy val scalafixVersion = V.version
+lazy val V = _root_.scalafix.sbt.BuildInfo
+lazy val scalafixVersion = V.scalafixVersion
 // Use a scala version supported by scalafix.
 ThisBuild / scalaVersion := V.scala212
+ThisBuild / crossScalaVersions := Seq(V.scala212, V.scala213)
 
 ThisBuild / organization := "com.eed3si9n.fix"
 ThisBuild / organizationName := "eed3si9n"
@@ -30,7 +31,6 @@ lazy val rules = project
 
 lazy val input = project
   .settings(
-    scalafixSourceroot := (Compile / sourceDirectory).value,
     addCompilerPlugin(scalafixSemanticdb),
     scalacOptions ++= List(
       "-Xlint",
